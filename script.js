@@ -225,27 +225,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const captions = [
         {
             title: "Vocabulary activities with bilingual support",
-            detail: "Schema activation and background knowledge transfer to the second language using bilingual support (Hedcock & Ferris, 2018; Cummins, 2008)."
+            detail: "Schema activation (Hedcock & Ferris, 2018) and background knowledge (Grabe, 2009). Transfers existing knowledge to the second language (Cummins, 2008) and clarifies key vocabulary (Patonah & Irawan, 2022)."
         },
         {
             title: "Reading texts adapted to EasyEnglish format",
-            detail: "Sufficient for intensive reading and vocabulary exposure for A1-A2 learners. Uses input enhancement to draw attention to grammar forms (Hedcock & Ferris, 2018; Nation & Macalister, 2021; Sharwood Smith, 1993)."
+            detail: "Approximately 300 words, appropriate for A1–A2 learners. Sufficient for intensive reading, supports grammar and vocabulary awareness (Hedcock & Ferris, 2018). Bolded past-tense verbs as input enhancement (Sharwood Smith, 1993) to draw attention to grammar forms."
         },
         {
             title: "Reading comprehension...",
-            detail: "Checks literal comprehension and reinforces key story events before language instruction (Hedcock & Ferris, 2018; Nation & Macalister, 2021)."
+            detail: "Checks literal comprehension, reinforces key story events, and confirms understanding before language instruction. Guides learners to comprehend the main topics (Hedcock & Ferris, 2018; Nation & Macalister, 2021)."
         },
         {
             title: "...with grammar activities",
-            detail: "Integrates grammatical accuracy within meaningful communication. Learners create their own sentences instead of copying examples (Canale & Swain, 1980; Brandl, 2021)."
+            detail: "Develops language skills through integrating grammatical accuracy (Canale & Swain, 1980, in Brandl, 2021). CLT involves grammar within meaningful communication (Brandl, 2021). Learners create their own sentences instead of copying examples."
         },
         {
             title: "Engaging speaking and oral task activities",
-            detail: "Communicative tasks where learners collaborate, negotiate ideas, sequence events, and produce an authentic task outcome (Brandl, 2021; Ellis, 2023)."
+            detail: "Communicative tasks (Brandl, 2021) where learners collaborate, negotiate ideas, sequence events, and produce an authentic product as a task outcome (Ellis, 2023)."
         },
         {
             title: "Faith reflections featuring EasyEnglish Bible verses",
-            detail: "Moves learners from understanding Scripture to interpreting meaning for personal application using simple vocabulary and sentence structure."
+            detail: "EasyEnglish Bible verses with simple vocabulary and sentence structure. Interpretive to personal application, moving learners from understanding Scripture to interpreting meaning for personal reflection."
         }
     ];
     
