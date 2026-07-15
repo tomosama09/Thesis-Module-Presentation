@@ -127,6 +127,22 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ═══════════════════════════════════════════════════════
+    // 4.5 Module Grid Stagger Observer
+    // ═══════════════════════════════════════════════════════
+    const moduleGridObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    const moduleGrid = document.getElementById('module-grid');
+    if (moduleGrid) {
+        moduleGridObserver.observe(moduleGrid);
+    }
+
+    // ═══════════════════════════════════════════════════════
     // 5. Research Questions Scroll Logic
     // ═══════════════════════════════════════════════════════
     const rqSection = document.querySelector('.research-questions');
@@ -196,61 +212,63 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6B. Chapter Hover Reveals
+    // 6B. Chapter Hover Reveals (from V1)
     const chapterRows = document.querySelectorAll('.chapter-row');
     const previewImg = document.getElementById('chapter-preview-img');
 
-    chapterRows.forEach(row => {
-        row.addEventListener('mouseenter', () => {
-            const newSrc = row.getAttribute('data-image');
-            if (previewImg && previewImg.src && !previewImg.src.endsWith(newSrc)) {
-                previewImg.style.opacity = '0';
-                previewImg.style.transform = 'scale(0.97)';
-                
-                setTimeout(() => {
-                    previewImg.src = newSrc;
-                    previewImg.style.opacity = '1';
-                    previewImg.style.transform = 'scale(1)';
-                }, 150);
-            }
+    if (chapterRows.length > 0 && previewImg) {
+        chapterRows.forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                const newSrc = row.getAttribute('data-image');
+                if (previewImg.src && !previewImg.src.endsWith(newSrc)) {
+                    previewImg.style.opacity = '0';
+                    previewImg.style.transform = 'scale(0.97)';
+                    
+                    setTimeout(() => {
+                        previewImg.src = newSrc;
+                        previewImg.style.opacity = '1';
+                        previewImg.style.transform = 'scale(1)';
+                    }, 150);
+                }
+            });
         });
-    });
+    }
 
-    // 6C. iPad Sticky Sequence logic
+    // 6C. iPad Sticky Sequence logic (from V1)
     const ipadSection = document.querySelector('.ipad-section');
     const ipadImages = document.querySelectorAll('.ipad-image');
-    const ipadCaption = document.getElementById('ipad-caption');
-    const ipadCaptionDetail = document.getElementById('ipad-caption-detail');
+    const ipadCaptionTitle = document.getElementById('ipad-caption-title');
+    const ipadCaptionDesc = document.getElementById('ipad-caption-desc');
     
-    const captions = [
+    const captionData = [
         {
             title: "Vocabulary activities with bilingual support",
-            detail: "Schema activation (Hedcock & Ferris, 2018) and background knowledge (Grabe, 2009). Transfers existing knowledge to the second language (Cummins, 2008) and clarifies key vocabulary (Patonah & Irawan, 2022)."
+            desc: "Schema activation (Hedcock & Ferris, 2018) and background knowledge (Grabe, 2009). Transfers existing knowledge to the second language (Cummins, 2008) and clarifies key vocabulary (Patonah & Irawan, 2022)."
         },
         {
             title: "Reading texts adapted to EasyEnglish format",
-            detail: "Approximately 300 words, appropriate for A1–A2 learners. Sufficient for intensive reading, supports grammar and vocabulary awareness (Hedcock & Ferris, 2018). Bolded past-tense verbs as input enhancement (Sharwood Smith, 1993) to draw attention to grammar forms."
+            desc: "Approximately 300 words, appropriate for A1–A2 learners. Sufficient for intensive reading, supports grammar and vocabulary awareness (Hedcock & Ferris, 2018). Bolded past-tense verbs as input enhancement (Sharwood Smith, 1993) to draw attention to grammar forms."
         },
         {
             title: "Reading comprehension...",
-            detail: "Checks literal comprehension, reinforces key story events, and confirms understanding before language instruction. Guides learners to comprehend the main topics (Hedcock & Ferris, 2018; Nation & Macalister, 2021)."
+            desc: "Checks literal comprehension, reinforces key story events, and confirms understanding before language instruction. Guides learners to comprehend the main topics (Hedcock & Ferris, 2018; Nation & Macalister, 2021)."
         },
         {
             title: "...with grammar activities",
-            detail: "Develops language skills through integrating grammatical accuracy (Canale & Swain, 1980, in Brandl, 2021). CLT involves grammar within meaningful communication (Brandl, 2021). Learners create their own sentences instead of copying examples."
+            desc: "Develops language skills through integrating grammatical accuracy (Canale & Swain, 1980, in Brandl, 2021). CLT involves grammar within meaningful communication (Brandl, 2021). Learners create their own sentences instead of copying examples."
         },
         {
             title: "Engaging speaking and oral task activities",
-            detail: "Communicative tasks (Brandl, 2021) where learners collaborate, negotiate ideas, sequence events, and produce an authentic product as a task outcome (Ellis, 2023)."
+            desc: "Communicative tasks (Brandl, 2021) where learners collaborate, negotiate ideas, sequence events, and produce an authentic product as a task outcome (Ellis, 2023)."
         },
         {
             title: "Faith reflections featuring EasyEnglish Bible verses",
-            detail: "EasyEnglish Bible verses with simple vocabulary and sentence structure. Interpretive to personal application, moving learners from understanding Scripture to interpreting meaning for personal reflection."
+            desc: "EasyEnglish Bible verses with simple vocabulary and sentence structure. Interpretive to personal application, moving learners from understanding Scripture to interpreting meaning for personal reflection."
         }
     ];
     
-    window.addEventListener('scroll', () => {
-        if (ipadSection && ipadImages.length > 0) {
+    if (ipadSection && ipadImages.length > 0) {
+        window.addEventListener('scroll', () => {
             const rect = ipadSection.getBoundingClientRect();
             const sectionTop = rect.top;
             const sectionHeight = rect.height;
@@ -276,20 +294,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            if (ipadCaption && captions[index]) {
-                if (ipadCaption.innerText !== captions[index].title) {
-                    ipadCaption.style.opacity = 0;
-                    if (ipadCaptionDetail) ipadCaptionDetail.style.opacity = 0;
+            if (ipadCaptionTitle && ipadCaptionDesc && captionData[index]) {
+                if (ipadCaptionTitle.innerText !== captionData[index].title) {
+                    ipadCaptionTitle.style.opacity = 0;
+                    ipadCaptionDesc.style.opacity = 0;
+                    
                     setTimeout(() => {
-                        ipadCaption.innerText = captions[index].title;
-                        if (ipadCaptionDetail) ipadCaptionDetail.innerText = captions[index].detail;
-                        ipadCaption.style.opacity = 1;
-                        if (ipadCaptionDetail) ipadCaptionDetail.style.opacity = 1;
+                        ipadCaptionTitle.innerText = captionData[index].title;
+                        ipadCaptionDesc.innerText = captionData[index].desc;
+                        ipadCaptionTitle.style.opacity = 1;
+                        ipadCaptionDesc.style.opacity = 1;
                     }, 150);
                 }
             }
-        }
-    });
+        });
+    }
     // ═══════════════════════════════════════════════════════
     // 7. 3D Book Hover Effect
     // ═══════════════════════════════════════════════════════
